@@ -1,0 +1,13 @@
+You can give different names to refer  a bean by using any of 2 ways-
+
+<bean id="triangle" class="org.shape.Triangle" name="tribhuj">	<!-- here 'name' attribute defines another name for 'triangle' bean -->
+ 	<property name="pointA" ref="pointA"/>
+	<property name="pointB" ref="pointB"/>
+	<property name="pointC" ref="pointC"/>
+</bean>	
+
+Another way to give different name to a bean is by using alias as follows-
+
+<alias name="triangle" alias="tikona">
+
+NOTE- Using different names for a bean is not a good practice. So always try to refer the bean by using it's 'id'.

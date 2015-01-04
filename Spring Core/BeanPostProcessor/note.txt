@@ -1,0 +1,2 @@
+BeanPostProcessor calls the methods before and after initialization of the beans. Which is similar to call init() method while intitializing every bean. But 
+unfortunatelly we don't have such an alternative for destroy() method, i.e. there is no such methods which are called before and after the destruction of the beans.

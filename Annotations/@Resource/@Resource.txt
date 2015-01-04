@@ -1,0 +1,17 @@
+@Resource
+public void setCenter(Point center) {
+	this.center = center;
+}
+So here I want to wire the property named 'center' with some bean. So by default it will 
+searche for the bean named 'center'.
+<bean id="center" class="codingToInterfaces.Point">  
+    	<property name="x" value="6"/>
+    	<property name="y" value="24"/>
+</bean>
+
+@Resource(name="pointA")		like autowire byName
+Now it will search for the bean having the id='pointA'.
+<bean id="pointA" class="codingToInterfaces.Point">  
+    	<property name="x" value="6"/>
+    	<property name="y" value="24"/>
+</bean>

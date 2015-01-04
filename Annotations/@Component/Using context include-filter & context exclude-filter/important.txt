@@ -1,0 +1,27 @@
+consider what it would take to have <context:component-scan> automatically register all classes that are implementations of Instrument using the annotation-based strategy. We’d have to visit the source code for each of the Instrument implementations and annotate them with @Component (or
+one of the other stereotype annotations). At the least, that’d be inconvenient. And if we were working with a third-party implementation of Instrument we may not even have access to the source code to be able to add that annotation. So, instead of relying on annotation-based component scanning, you can ask<context:component-scan> to automatically register all classes that are assignable to Instrument by adding an include filter, as follows:
+
+<context:component-scan base-package="com.springinaction.springidol">
+	<context:include-filter type="assignable" expression="com.springinaction.springidol.Instrument"/>
+</context:component-scan>
+
+The type and the expression attributes of <context:include-filter> work together to define a component-scanning strategy. In this case, we’re asking for all classes that are assignable to Instrument to be automatically registered as Spring beans. But you can choose from other kinds of filtering, as cataloged below:
+
+annotation - Filters scan classes looking for those annotated with a given annotation at the type level. The annotation to scan for is specified in the expression attribute.
+
+assignable - Filters scan classes looking for those that are assignable to the type specified in the expression attribute.
+
+aspectj - Filters scan classes looking for those that match the AspectJ type expression specified in the expression attribute.
+
+custom - Uses a custom implementation of org.springframework.core.type.TypeFilter, as specified in the expression attribute.
+
+regex - Filters scan classes looking for those whose class names match the regular expression specified in the expression attribute.
+
+Just as <context:include-filter> can be used to tell <context:component-scan> what it should register as beans, you can use <context:exclude-filter> to tell it what NOT to register. For example, to register all Instrument implementations except for those annotated with a custom @SkipIt annotation:
+
+<context:component-scan base-package="com.springinaction.springidol">
+	<context:include-filter type="assignable" expression="com.springinaction.springidol.Instrument"/>
+	<context:exclude-filter type="annotation" expression="com.springinaction.springidol.SkipIt"/>
+</context:component-scan>
+
+When it comes to filtering <context:component-scan>, the possibilities are virtually endless. But you’ll find that the default annotation-based strategy is the most commonly used. And it’ll be the one you’ll see most often throughout this book.

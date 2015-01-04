@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  								
+  
+	 <bean id="triangle" class="shapeMVC.shapes.Triangle">  
+		<property name="pointA" ref="pointA"/>
+		<property name="pointB" ref="pointB"/>
+		<property name="pointC" ref="pointC"/>
+	</bean>
+	
+	<bean id="circle" class="shapeMVC.shapes.Circle">  
+		<property name="center" ref="pointA"/>
+	</bean>
+
+    <bean id="pointA" class="shapeMVC.shapes.points.Point">  
+    	<property name="x" value="0"/>
+    	<property name="y" value="0"/>
+	</bean>  
+	
+	 <bean id="pointB" class="shapeMVC.shapes.points.Point">  
+    	<property name="x" value="2"/>
+    	<property name="y" value="4"/>
+	</bean>  
+	
+	 <bean id="pointC" class="shapeMVC.shapes.points.Point">  
+    	<property name="x" value="8"/>
+    	<property name="y" value="6"/>
+	</bean>  
+    
+</beans>  

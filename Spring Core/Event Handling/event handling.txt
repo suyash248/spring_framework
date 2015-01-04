@@ -1,0 +1,73 @@
+Event handling in the ApplicationContext is provided through the ApplicationEvent class
+and ApplicationListener interface. If a bean that implements the ApplicationListener
+interface is deployed into the context, every time an ApplicationEvent gets published to the
+ApplicationContext, that bean is notified. Essentially, this is the standard Observer design pattern.
+Spring provides the following standard events:
+
+You can also create and publish your own custom events. This example demonstrates a simple class that extends Spring's ApplicationEvent base class:
+
+public class BlackListEvent extends ApplicationEvent {
+private final String address;
+private final String test;
+public BlackListEvent(Object source, String address, String test) {
+super(source);
+this.address = address;
+this.test = test;
+}
+// accessor and other methods...
+}
+
+
+To publish a custom ApplicationEvent, call the publishEvent() method on an ApplicationEventPublisher. Typically this is done by creating a class that implements ApplicationEventPublisherAware and registering it as a Spring bean. The following example demonstrates such a class:
+
+public class EmailService implements ApplicationEventPublisherAware {
+private List<String> blackList;
+private ApplicationEventPublisher publisher;
+public void setBlackList(List<String> blackList) {
+this.blackList = blackList;
+}
+public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+this.publisher = publisher;
+}
+public void sendEmail(String address, String text) {
+if (blackList.contains(address)) {
+BlackListEvent event = new BlackListEvent(this, address, text);
+publisher.publishEvent(event);
+return;
+}
+// send email...
+}
+}
+
+At configuration time, the Spring container will detect that EmailService implements ApplicationEventPublisherAware and will automatically call
+setApplicationEventPublisher(). In reality, the parameter passed in will be the Spring container itself; you're simply interacting with the application context via its ApplicationEventPublisher interface. To receive the custom ApplicationEvent, create a class that implements ApplicationListener and register it as a Spring bean. The following example demonstrates such a class:
+
+public class BlackListNotifier implements ApplicationListener<BlackListEvent> {
+private String notificationAddress;
+public void setNotificationAddress(String notificationAddress) {
+this.notificationAddress = notificationAddress;
+}
+public void onApplicationEvent(BlackListEvent event) {
+// notify appropriate parties via notificationAddress...
+}
+}
+
+Notice that ApplicationListener is generically parameterized with the type of your custom event, BlackListEvent. This means that the onApplicationEvent() method can remain type-safe, avoiding any need for downcasting. You may register as many event listeners as you wish, but note that by default event listeners receive events synchronously. This means the publishEvent() method blocks until all listeners have finished processing the event. One advantage of this synchronous and Spring Framework single-threaded approach is that when a listener receives an event, it operates inside the transaction context of the publisher if a transaction context is available. If another strategy for event publication becomes necessary, refer to the JavaDoc for Spring's ApplicationEventMulticaster interface. The following example shows the bean definitions used to register and configure each of the classes above:
+
+<bean id="emailService" class="example.EmailService">
+<property name="blackList">
+<list>
+<value>known.spammer@example.org</value>
+<value>known.hacker@example.org</value>
+<value>john.doe@example.org</value>
+</list>
+</property>
+</bean>
+<bean id="blackListNotifier" class="example.BlackListNotifier">
+<property name="notificationAddress" value="blacklist@example.org"/>
+</bean>
+
+Putting it all together, when the sendEmail() method of the emailService bean is called, if there
+are any emails that should be blacklisted, a custom event of type BlackListEvent is published. The
+blackListNotifier bean is registered as an ApplicationListener and thus receives the
+BlackListEvent, at which point it can notify appropriate parties.

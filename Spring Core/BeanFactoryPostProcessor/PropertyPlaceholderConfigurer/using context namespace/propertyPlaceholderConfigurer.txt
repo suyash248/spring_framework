@@ -1,0 +1,25 @@
+With the context namespace introduced in Spring 2.5, it is possible to configure property placeholders with a dedicated configuration element. One or more locations can be provided as a comma-separated list in the location attribute.
+
+<context:property-placeholder location="jdbc.properties, mydb.properties"/>
+
+The PropertyPlaceholderConfigurer not only looks for properties in the Properties file you specify. By default it also checks against the Java System properties if it cannot find a property in the specified properties files. You can customize this behavior by setting the systemPropertiesMode property of the configurer with one of the following three supported integer values:
+
+NEVER (0): Never check system properties
+
+FALLBACK (1): Check system properties if not resolvable in the specified properties files.
+
+OVERRIDE (2): Check system properties first, before trying the specified properties files. This allows system properties to override any other property source.
+
+ENVIRONMENT : This is default.
+
+
+<context:property-placeholder location="myPointX.properties, myPointY.properties" system-properties-mode="OVERRIDE"/>
+
+
+Class name substitution
+You can use the PropertyPlaceholderConfigurer to substitute class names, which is sometimes useful when you have to pick a particular implementation class at runtime as follows-
+
+<bean id="pointA" class="${point.class}">  
+    	<property name="x" value="${pointA.pointX}"/>
+    	<property name="y" value="${pointA.pointY}"/>
+</bean>

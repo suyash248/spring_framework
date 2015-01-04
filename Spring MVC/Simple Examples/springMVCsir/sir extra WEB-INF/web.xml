@@ -1,0 +1,33 @@
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+
+
+  <servlet>
+    <servlet-name>context</servlet-name>
+    <servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>simple</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>simple</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index1.jsp</welcome-file>
+  </welcome-file-list>
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>WebApp</realm-name>
+  </login-config>
+
+</web-app>

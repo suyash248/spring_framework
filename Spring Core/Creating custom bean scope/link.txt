@@ -1,0 +1,1 @@
+http://www.javabeat.net/custom-scope-spring-beans/

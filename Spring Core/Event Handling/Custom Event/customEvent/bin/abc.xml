@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  								
+  
+	 <bean id="emailService" class="customEvent.EmailService">
+		<property name="blackList">
+			<set>  
+				<!--  Following all are black listed addresses.  -->
+				
+				<value>suyash248@gmail.com</value>
+				<value>suyash.soni248@gmail.com</value>
+				<value>suyash.soni248@yahoo.com</value>
+				<value>suyash.soni248@hotmail.com</value>
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="blackListListener" class="customEvent.BlackListListener">
+		<property name="notificationAddress" value="myClient@yahoo.com"/>
+	</bean>
+
+</beans>  

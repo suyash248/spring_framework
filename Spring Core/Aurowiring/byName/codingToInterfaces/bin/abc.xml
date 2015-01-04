@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  								
+  
+	 <bean id="triangle" class="codingToInterfaces.Triangle" autowire="byName">  
+	
+	</bean>
+	
+	 <bean id="circle" class="codingToInterfaces.Circle">  
+		<property name="center" ref="pointA"/>
+	 </bean>
+
+     <bean id="pointA" class="codingToInterfaces.Point">  
+    	<property name="x" value="10"/>
+    	<property name="y" value="10"/>
+	 </bean>  
+	
+	 <bean id="pointB" class="codingToInterfaces.Point">  
+    	<property name="x" value="19"/>
+    	<property name="y" value="14"/>
+	</bean>  
+	
+	 <bean id="pointC" class="codingToInterfaces.Point">  
+    	<property name="x" value="6"/>
+    	<property name="y" value="23"/>
+	 </bean>  
+    
+</beans>  

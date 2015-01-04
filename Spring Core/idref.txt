@@ -1,0 +1,23 @@
+<bean id="triangle" class="org.shape.Triangle" name="tribhuj">	<!-- here 'name' attribute defines another name for 'triangle' bean -->
+ 	<property name="pointA" ref="pointA"/>
+	<property name="pointB" ref="pointB"/>
+	<property name="pointC" ref="pointC"/>
+</bean>
+
+
+By using 'ref' attribute you can store names, references etc. as a property value. So if you want to force that a property MUST store an id(i.e. reference)
+then you can use 'idref' instead of 'ref'. It's a kind of extra validation you are applying. So in this case if 'idref' contains a value which is not an 
+id(i.e. reference) then an exception will be thrown at the time of bean initialization.
+
+
+<bean id="triangle" class="org.shape.Triangle" name="tribhuj">	<!-- here 'name' attribute defines another name for 'triangle' bean -->
+ 	<property name="pointA">
+	     <idref="pointA"/>
+	</property>
+	<property name="pointB">
+	     <idref="pointB"/>
+	</property>
+	<property name="pointC">
+	     <idref="pointC"/>
+	</property>
+</bean>

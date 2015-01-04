@@ -1,0 +1,1 @@
+org.hibernate.cache.RegionFactory class is present only in hibernate 3.3 or above API's. So here i've added 'hibernate 4.0 core.jar'.

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="customerService" class="springPrj.CustomerService">
+       <property name="name" value="Amit"/>
+       <property name="url" value="http://ducat.com"/> 
+    </bean>
+    
+    <bean id="hijackBeforeMethodBean" class="springPrj.HijackBeforeMethod"/>
+    <bean id="hijackAfterMethodBean" class="springPrj.HijackAfterMethod"/>
+    
+    <bean id="customerServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService"/>
+        <property name="interceptorNames">
+            <list>
+                <value>hijackBeforeMethodBean</value>
+                <value>hijackAfterMethodBean</value>
+            </list>
+        </property>
+    </bean>    
+</beans>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  								
+  
+	 <bean id="company" class="spEL.CompanyInfo">  
+		<property name="cname" value="Google"/>
+		<property name="clocation"  value="Mountain View, US"/>  
+		<property name="cturnover" value="2000000"/>
+		<property name="cestablishedYear" value="2002"/>
+	</bean>
+
+    <bean id="employee1" class="spEL.Employee">  
+    	
+    	<property name="name" value="#{'Suyash'}"/>
+    	<property name="experience" value="#{4}"/>
+    	<property name="salary" value="#{T(java.lang.Math).random()*150000}"/>
+    	<property name="isActive" value="#{true}"/>
+    	<property name="isMNC" value="#{company.cestablishedYear le 2005 and company.cturnover ge 100000}"/>
+    	<property name="companyType" value="#{company.cturnover ge 100000 ? 'Publically Listed' : 'Third Class'}"/>
+  		<property name="companyInfo" ref="company"/> 
+		<property name="common" value="Shared by Suyash"/>
+		<property name="demoOutput" value="#{company.demo()+' by SUYASH'}"/>
+	</bean>  
+	
+	<bean id="employee2" class="spEL.Employee">  
+		
+		<property name="name" value="#{'Abhi'}"/>
+		<property name="experience" value="#{2}"/>
+		<property name="salary" value="#{T(java.lang.Math).random()*150000}"/>
+		<property name="isActive" value="#{false}"/>
+		<property name="isMNC" value="#{company.cestablishedYear le 2005 and company.cturnover ge 100000}"/>
+		<property name="companyType" value="#{company.cturnover ge 100000 ? 'Publically Listed' : 'Third Class'}"/>
+		<property name="companyInfo" value="#{employee1.companyInfo}"/>  
+		<property name="common" value="#{employee1.common}"/>
+		<property name="demoOutput" value="#{company.demo()+' by ABHI'}"/>
+	</bean>  
+    
+</beans>  

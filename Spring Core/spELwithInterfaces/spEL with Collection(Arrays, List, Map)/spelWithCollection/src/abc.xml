@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="dateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg value="yyyy-MM-dd" />
+	</bean>
+
+	<bean id="inventorSuyash" class="spELexpressions.Inventor">
+		<property name="name" value="Suyash"/>
+		<property name="nationality" value="Indian"/>
+		<property name="inventions">
+			<list>
+				<value>Fire</value>
+				<value>Internet</value>
+				<value>Telephone</value>
+			</list>
+		</property>
+		<property name="birthdate">
+			<bean factory-bean="dateFormat" factory-method="parse">
+				<constructor-arg value="1993-04-06"/>
+			</bean>
+		</property>
+		<property name="placeOfBirth">
+			<bean class="spELexpressions.PlaceOfBirth">
+				<property name="city" value="Delhi"/>
+				<property name="country" value="India"/>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	<bean id="inventorAbhi" class="spELexpressions.Inventor">
+		<property name="name" value="Abhi"/>
+		<property name="nationality" value="Indian"/>
+		<property name="inventions">
+			<list>
+				<value>Bluetooth</value>
+				<value>Computer</value>
+				<value>Mobile</value>
+			</list>
+		</property>
+		<property name="birthdate">
+			<bean factory-bean="dateFormat" factory-method="parse">
+				<constructor-arg value="1994-09-25"/>
+			</bean>
+		</property>
+		<property name="placeOfBirth">
+			<bean class="spELexpressions.PlaceOfBirth">
+				<property name="city" value="Mumbai"/>
+				<property name="country" value="India"/>
+			</bean>
+		</property>
+		
+	</bean>
+	
+	<bean id="society" class="spELexpressions.Society">
+		<property name="members">
+			<list>
+				<ref bean="inventorSuyash"/>
+				<ref bean="inventorAbhi"/>
+			</list>
+		</property>
+	
+		<property name="officers">
+			<map>
+				<entry key="101" value="Alka Singhal"/>
+				<entry key="102" value="Diksha Dani"/>
+				<entry key="103" value="Anjali Singhal"/>
+				<entry key="104" value="Shweta Chaku"/>
+				<entry key="105" value="Amita Bhatnagar"/>
+			</map>
+		</property>
+	</bean>
+	
+</beans>

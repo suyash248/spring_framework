@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  								
+  
+	<bean id="parentTriangle" class="inheritingBeanDef.Triangle" abstract="true">  
+		<property name="points">
+			<list>
+				<ref bean ="pointA"/>
+			</list>
+		</property>
+	</bean>  
+	 <bean id="triangle" class="inheritingBeanDef.Triangle" parent="parentTriangle">  
+		<property name="points">
+			<list merge="true">
+				<ref bean ="pointB"/>
+				<ref bean ="pointC"/>
+			</list>
+		</property>
+	</bean>
+    <bean id="pointA" class="inheritingBeanDef.Point">  
+    	<property name="x" value="0"/>
+    	<property name="y" value="0"/>
+	</bean>  
+	 <bean id="pointB" class="inheritingBeanDef.Point">  
+    	<property name="x" value="3"/>
+    	<property name="y" value="5"/>
+	</bean>  
+	 <bean id="pointC" class="inheritingBeanDef.Point">  
+    	<property name="x" value="8"/>
+    	<property name="y" value="6"/>
+	</bean>  
+    
+</beans>  

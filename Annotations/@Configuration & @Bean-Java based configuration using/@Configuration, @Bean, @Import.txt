@@ -1,0 +1,73 @@
+package com.springinaction.springidol;
+import org.springframework.context.annotation.Configuration;
+@Configuration
+public class SpringIdolConfig {
+// Bean declaration methods go here
+}
+The @Configuration annotation serves as a clue to Spring that this class will contain
+one or more Spring bean declarations. Those bean declarations are just methods that
+are annotated with @Bean. Let’s see how to use @Bean to wire beans using Spring’s Java based configuration.
+
+@Bean
+public Performer duke() {
+return new Juggler();
+}
+This simple method is the Java configuration equivalent of the <bean> element we created
+earlier. The @Bean tells Spring that this method will return an object that should
+be registered as a bean in the Spring application context. The bean will get its ID from
+the method name. Everything that happens in the method ultimately leads to the creation of the bean. In this case, the bean declaration is simple. The method creates and returns an instance of Juggler. That object will be registered in the Spring application context with an ID of duke.
+
+Although this bean declaration method is largely equivalent to the XML version, it
+illustrates one strength that Spring’s Java configuration has over its XML counterpart.
+In the XML version, both the bean’s type and its ID were identified by String attributes.
+The downside of String identifiers is that they don’t lend themselves to
+compile-time checking. If we were to rename the Juggler class, we may forget to
+change the XML configuration to match.
+In Spring’s Java-based configuration, there are no String attributes. Both the
+bean’s ID and its type are expressed as part of a method signature. The actual creation
+of the bean is defined in the method body. Because it’s all Java, you gain some benefit
+in terms of compile-time checking to ensure that your bean’s type is a real type and
+that its ID is unique.
+
+For example, let’s first look at how to inject values into a bean. Earlier, we saw how
+to create a Juggler bean that juggles 15 beanbags by using the <constructor-arg>
+element in XML configuration. In the Java-based configuration, we can just pass the
+number directly into the constructor:
+@Bean
+public Performer duke15() {
+return new Juggler(15);
+}
+As you can see, the Spring Java–based configuration feels natural, as it lets you define
+your beans using Java the way you always have. Setter injection is also natural Java:
+@Bean
+public Performer kenny() {
+Instrumentalist kenny = new Instrumentalist();
+kenny.setSong("Jingle Bells");
+return kenny;
+}
+Wiring simple values is straightforward enough. What about wiring in references to
+other beans? It’s just as easy.
+To illustrate, let’s first set things up by declaring a sonnet29 bean in Java:
+@Bean
+private Poem sonnet29() {
+return new Sonnet29();
+}
+This is another simple Java-based bean declaration, not much different than what
+we’ve already done with the duke bean. Now, let’s create a PoeticJuggler bean, wiring
+the sonnet29 bean in through its constructor:
+@Bean
+public Performer poeticDuke() {
+return new PoeticJuggler(sonnet29());
+}
+Wiring in another bean is a simple matter of referring to that bean’s method. But
+don’t let the simplicity fool you. More is going on here than meets the eye.
+In Spring Java Configuration, referring to a bean through its declaration method
+isn’t the same as calling the method. If it were, then each time we call sonnet29(),
+we’d get a new instance of that bean. Spring is more clever than that.
+By annotating the sonnet29() method with @Bean, we’re telling Spring that we
+want that method to define a bean to be registered in the Spring application context.
+Then, whenever we refer to that method in another bean declaration method, Spring
+will intercept the call to the method and try to find the bean in its context instead of
+letting the method create a new instance.
+
+MUST go through spring reference 3.1 starting from page 142

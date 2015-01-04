@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+   <bean id="myScope" class="com.javabeat.MyScope"/>
+	
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="customscope">
+                    <ref bean="myScope" />
+                </entry>
+            </map>
+        </property>
+   </bean>
+   
+   <bean name="p1" class="com.javabeat.Person" scope="customscope" /> <!--  Using that custom scope here in this bean -->
+
+</beans>

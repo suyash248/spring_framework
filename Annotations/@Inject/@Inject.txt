@@ -1,0 +1,18 @@
+@Inject
+This annotation is an almost complete drop-in replacement for Spring’s @Autowired annotation. So, instead of using the Spring-specific @Autowired annotation, you might choose to use @Inject.
+
+@Inject
+private Instrument instrument;
+Just like @Autowired, @Inject can be used to autowire properties, methods, and constructors. Unlike @Autowired, @Inject doesn’t have a required attribute. Therefore, @Inject-annotated dependencies are expected to be fulfilled, failing with an exception if they’re not.
+
+QUALIFYING @INJECTED PROPERTIES
+As you’ve seen, @Inject and @Autowired have a lot in common. And like @Autowired,
+the @Inject annotation is prone to ambiguous bean definitions. @Inject’s answer to
+the @Qualifier annotation is the @Named annotation.
+The @Named annotation works much like Spring’s @Qualifier, as you can see here:
+@Inject
+@Named("guitar")
+private Instrument instrument;
+The key difference between Spring’s @Qualifier and JSR-330’s @Named is one of
+semantics. Whereas @Qualifier helps narrow the selection of matching beans (using
+the bean’s ID by default), @Named specifically identifies a selected bean by its ID.

@@ -1,0 +1,46 @@
+@Component	// It will register Circle class as bean with id=circle
+public class Circle{
+....
+....
+}
+It is used to tell spring that "Circle" class is a bean. so @Component is equivalent to-
+<bean id="circle" class="Circle"/>
+
+@Component("gola")	// It will register Circle class as bean with id=gola
+public class Circle{
+....
+....
+}
+
+LIMITATION-
+But one limitation of @Component is that you can not define multiple instances of a bean. So following can not be done-
+@Component		
+public class Point{
+
+}
+
+in abc.xml-
+<bean id="pointA" class="Point"/>
+<bean id="pointB" class="Point"/>
+<bean id="pointC" class="Point"/>
+
+while using @Component you need to add following tag in your spring configuration file-
+<context:component-scan base-package="org.soni.spring"/>
+		OR
+public static void main(String[] args) {
+	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+	ctx.scan("org.soni.spring");
+	ctx.refresh();
+}
+
+So now the spring is gonna search the classes containing @Component annotation inside the 'org.soni.spring' package and it's subpackages.
+
+@Controller, @Service, @Repository are also same as @Component in terms of their functionality but earlier 3 provide some extra information.
+
+By default, <context:component-scan> looks for classes that are annotated with one
+of a handful of special stereotype annotations:
+ @Component—A general-purpose stereotype annotation indicating that the classis a Spring component
+ @Controller—Indicates that the class defines a Spring MVC controller
+ @Repository—Indicates that the class defines a data repository
+ @Service—Indicates that the class defines a service
+ Any custom annotation that is itself annotated with @Component

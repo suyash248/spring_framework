@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation=	
+		"http://www.springframework.org/schema/aop 
+    		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+    		http://www.springframework.org/schema/beans 
+    		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+    		http://www.springframework.org/schema/context 
+    		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+    		http://www.springframework.org/schema/jee 
+    		http://www.springframework.org/schema/jee/spring-jee-3.2.xsd 
+    		http://www.springframework.org/schema/tx 
+    		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+    		http://www.springframework.org/schema/util 
+			http://www.springframework.org/schema/util/spring-util.xsd
+    		http://www.springframework.org/schema/task 
+    		http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+    		
+    	<util:list id ="cities">
+			<bean class="spELwithCollection.City" p:name="Chicago" p:state="IL" p:population="2853114"/>
+			<bean class="spELwithCollection.City" p:name="Atlanta" p:state="GA" p:population="537958"/>
+			<bean class="spELwithCollection.City" p:name="Dallas" p:state="TX" p:population="1279910"/>
+			<bean class="spELwithCollection.City" p:name="Houston" p:state="TX" p:population="2242193"/>
+			<bean class="spELwithCollection.City" p:name="Odessa" p:state="TX" p:population="90943"/>
+			<bean class="spELwithCollection.City" p:name="El Paso" p:state="TX" p:population="613190"/>
+			<bean class="spELwithCollection.City" p:name="Jal" p:state="NM" p:population="1996"/>
+			<bean class="spELwithCollection.City" p:name="Las Cruces" p:state="NM" p:population="91865"/>
+		</util:list>
+    	
+    	<bean id="access" class="spELwithCollection.Access">
+    		<property name="chosenCity" value="#{cities.^[population gt 100000]}"/>
+    	</bean>
+    	
+    </beans>		

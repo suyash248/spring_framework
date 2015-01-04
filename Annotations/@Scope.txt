@@ -1,0 +1,11 @@
+@Scope
+You can specify that your beans defined with the @Bean annotation should have a specific scope.The default scope is singleton, but you can override this with the @Scope annotation:
+
+@Configuration
+public class MyConfiguration {
+@Bean
+@Scope("prototype")
+public Encryptor encryptor() {
+// ...
+}
+}

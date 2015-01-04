@@ -1,0 +1,12 @@
+Merging behavior applies similarly to the <list/>, <map/>, and <set/> collection types. In the specific case of the <list/> element, the semantics 
+associated with the List collection type, that is, the notion of an ordered collection of values, is maintained; the parent's values precede all of the 
+child list's values. In the case of the Map, Set, and Properties collection types, no ordering exists. Hence no ordering semantics are in effect for the 
+collection types that underlie the associated Map, Set, and Properties implementation types that the container uses internally.
+
+
+
+LIMITATION OF MERGING
+
+You cannot merge different collection types (such as a Map and a List), and if you do attempt to do so an appropriate Exception is thrown. The merge 
+attribute must be specified on the lower, inherited, child definition; specifying the merge attribute on a parent collection definition is redundant and 
+will not result in the desired merging. The merging feature is available only in Spring 2.0 and later.

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+  <bean id="company" class="innerBeans.CompanyInfo">  
+		<property name="cname" value="Google"/>
+		<property name="clocation"  value="Mountain View, US"/>  
+		<property name="cturnover" value="2000000"/>
+	</bean>  
+  
+  
+  <bean id="employee1" class="innerBeans.Employee">  
+		<property name="companyInfo" ref="company"/>  
+	
+		<property name="personalInfo">
+			<bean class="innerBeans.PersonalInfo">
+				<property name="ename" value="Suyash"/>  
+				<property name="eaddress" value="201, Saint's house, NYC, US"/>  
+				<property name="esalary" value="800000"/>  
+				<property name="ephone" value="987189"/>
+			</bean>
+		</property>
+	  
+	</bean>  
+  
+	<bean id="employee2" class="innerBeans.Employee">  
+		<property name="companyInfo" ref="company"/>  
+	
+		<property name="personalInfo">
+			<bean class="innerBeans.PersonalInfo">
+				<property name="ename" value="Abhi"/>  
+				<property name="eaddress" value="207, Saint's house, NYC, US"/>  
+				<property name="esalary" value="700000"/>  
+				<property name="ephone" value="786035"/>
+			</bean>
+		</property>
+	  
+	</bean>  
+    
+	
+</beans>  
