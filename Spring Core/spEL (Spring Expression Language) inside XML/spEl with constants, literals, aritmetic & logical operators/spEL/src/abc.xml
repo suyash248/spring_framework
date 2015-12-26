@@ -12,6 +12,7 @@
 	</bean>
 
     <bean id="employee1" class="spEL.Employee">  
+    	
     	<property name="name" value="#{'Suyash'}"/>
     	<property name="experience" value="#{4}"/>
     	<property name="salary" value="#{T(java.lang.Math).random()*150000}"/>
@@ -24,6 +25,7 @@
 	</bean>  
 	
 	<bean id="employee2" class="spEL.Employee">  
+		
 		<property name="name" value="#{'Abhi'}"/>
 		<property name="experience" value="#{2}"/>
 		<property name="salary" value="#{T(java.lang.Math).random()*150000}"/>

@@ -23,6 +23,9 @@ Allows a property to be autowired if exactly one bean of the property type exist
 constructor	
 Analogous to byType, but applies to constructor arguments. If there is not exactly one bean of the constructor argument type in the container, a fatal error is raised.
 
+autodetect
+It chooses "autowire by "constructor" if default constructor (argument with any data type), otherwise uses “autowire by type“.
+
 
 With byType or constructor autowiring mode, you can wire arrays and typed-collections. In such cases all autowire candidates within the container that match the expected type are provided to satisfy the dependency. You can autowire strongly-typed Maps if the expected key type is String. An autowired Maps values will consist of all bean instances that match the expected type, and the Maps keys will contain the corresponding bean names.
 

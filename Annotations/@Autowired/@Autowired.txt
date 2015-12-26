@@ -1,62 +1,13 @@
 @Autowired
 
-private Point center;	// property that needs to be wired
+@Autowired can be defined on the fields, methods and constructors. Note that the required attribute can be used anywhere.
 
-This annotation do the autowiring byType, hence it searches for the bean matching the type of property that needs to be wired. i.e. here it will searches for a bean of type "Point" and wire it to the property named "center".
-But if there are multiple beans of same type. i.e. if there are more than one beans of type "Point" such that-
+But when @Autowired is used with constructors, only one constructor can be annotated with @Autowired(required=true) remaining all constructors should have @Autowired(required=false)
 
-<bean id="kendra1" class="codingToInterfaces.Point">  
-    	<property name="x" value="6"/>
-    	<property name="y" value="24"/>
-</bean> 
-<bean id="kendra2" class="codingToInterfaces.Point">  
-    	<property name="x" value="26"/>
-    	<property name="y" value="63"/>
-</bean> 
-<bean id="center" class="codingToInterfaces.Point">  
-    	<property name="x" value="98"/>
-    	<property name="y" value="72"/>
-</bean> 
+This annotation do the autowiring byName if possible othewise it does wiring byType.
 
-Then if will look for a bean having the name same as the porperty name (i.e. 'center'). i.e. here it will find the bean having the name/id='center' then the property 'center' will be wired to that bean.
-But if the bean with id='center' is not found here then qualifiers comes in to picture. Have a look on the following snippet-
-
-private Point center;	// property that needs to be wired
-
-<bean id="kendra1" class="codingToInterfaces.Point">  
-    	<property name="x" value="6"/>
-    	<property name="y" value="24"/>
-</bean> 
-<bean id="kendra2" class="codingToInterfaces.Point">
-	<qualifier value="circleRelated"/>  
-    	<property name="x" value="26"/>
-    	<property name="y" value="63"/>
-</bean> 
-<bean id="kendra3" class="codingToInterfaces.Point">  
-    	<property name="x" value="98"/>
-    	<property name="y" value="72"/>
-</bean> 
-
-Here are multiple (3) beans of type "Point" and neither of them is having the name/id='center'. So in this case we have to use qualifiers as-
-
-@Autowired
-@Qualifier("circleRelated")
-public void setCenter(Point center) {
-	this.center = center;
-}
-So here it will search for the bean having the qualifer="circleRelated" and if such bean is found then that bean is wired to the property 'center'.
-
-
-@Autowired can be defined on the fields, methods and constructors. Note that the required attribute can be used anywhere @Autowired can be used.
-But when used with constructors, only one constructor can be annotated with
-
-@Autowired(required=false)
-private Point center;
-Here, Spring will try to wire the center property. But if no bean of type
-Point can be found, then no problem. The property will be left null.
-Note that the required attribute can be used anywhere @Autowired can be used.
-But when used with constructors, only one constructor can be annotated with
-@Autowired and required set to true. All other @Autowired-annotated constructors
-must have required set to false. Moreover, when multiple constructors are annotated
-with @Autowired, Spring will choose the constructor which has the most arguments
-that can be satisfied.
+By default required is set to true. So if any matching bean is not found, an exception will be thrown.
+But if required is set to false then - 
+case 1 : No mathing bean is found, Underlying property will be set to null (i.e. won't be injected).
+case 2 : There are more than one matching beans are found, exception will be thrown.
+case 3 : exactly one matching bean is found, property will be wired successfully.
